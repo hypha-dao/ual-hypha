@@ -1,0 +1,51 @@
+{
+  "name": "ual-hypha",
+  "version": "1.0.0",
+  "description": "UAL implementation for Hypha Wallet",
+  "type": "module",
+  "source": "index.js",
+  "main": "index.js",
+  "module": "index.js",
+  "browser": "index.js",
+  "directories": {
+    "demo": "demo"
+  },
+  "scripts": {
+    "test": "jest",
+    "build": "npx microbundle --external none index.js -o dist",
+    "demo": "cd demo && npm run start"
+  },
+  "dependencies": {
+    "@babel/core": "^7.21.4",
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/preset-env": "^7.16.11",
+    "@greymass/eosio": "^0.5.5",
+    "buffer": "^6.0.3",
+    "eosio-signing-request": "^2.4.0",
+    "eosjs": "^22.1.0",
+    "pako": "^2.0.4",
+    "qrcode": "^1.5.0",
+    "text-encoding": "^0.7.0",
+    "universal-authenticator-library": "^0.3.0",
+    "util": "^0.12.4",
+    "uuid": "^8.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hypha-dao/ual-hypha.git"
+  },
+  "keywords": [
+    "SEEDS",
+    "wallet",
+    "UAL"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hypha-dao/ual-hypha/issues"
+  },
+  "homepage": "https://github.com/hypha-dao/ual-hypha#readme",
+  "devDependencies": {
+    "jest": "^29.5.0"
+  }
+}
