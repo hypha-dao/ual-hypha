@@ -19,12 +19,12 @@ export class HyphaUser extends User {
       const message = e.message ? e.message : "Unable to sign transaction";
       const type = UALErrorType.Signing;
       const cause = e;
-      throw new UALSeedsWalletError(message, type, cause);
+      throw new UALHyphaWalletError(message, type, cause);
     }
   }
 
   async signArbitrary() {
-    throw new UALSeedsWalletError(
+    throw new UALHyphaWalletError(
       `${Name} does not currently support signArbitrary`,
       UALErrorType.Unsupported,
       null
@@ -32,7 +32,7 @@ export class HyphaUser extends User {
   }
 
   async verifyKeyOwnership() {
-    throw new UALSeedsWalletError(
+    throw new UALHyphaWalletError(
       `${Name} does not currently support verifyKeyOwnership`,
       UALErrorType.Unsupported,
       null
@@ -57,14 +57,14 @@ export class HyphaUser extends User {
 
       return actualKeys.length > 0;
     } catch (e) {
-      if (e.constructor.name === "UALSeedsWalletError") {
+      if (e.constructor.name === "UALHyphaWalletError") {
         throw e;
       }
 
       const message = `Account validation failed for account ${this.accountName}.`;
       const type = UALErrorType.Validation;
       const cause = e;
-      throw new UALSeedsWalletError(message, type, cause);
+      throw new UALHyphaWalletError(message, type, cause);
     }
   }
 

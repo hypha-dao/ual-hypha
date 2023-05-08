@@ -2,7 +2,9 @@ import Dialog from "./ui/dialog.js";
 import QRCode from "qrcode";
 import { poll, getTransactionUID } from "../utils/index.js";
 import { SEEDS_CALLBACK_HOST } from "../../config/index.js";
-import { UALSeedsWalletError } from "../UALHyphaWalletError.js";
+import { UALHyphaWalletError } from "../UALHyphaWalletError.js";
+
+const StorageSessionKey = `UALStorageSessionKey`;
 
 const checkLoginData = function (transaction, loginCode) {
   const actions = transaction.traces;
@@ -18,6 +20,7 @@ const checkLoginData = function (transaction, loginCode) {
   return data.account_name;
 };
 
+
 class WebTransportLink {
   constructor(esrUtil, pollingInterval = 2000) {
     this.dialog = new Dialog();
@@ -26,6 +29,7 @@ class WebTransportLink {
     this.pollingInterval = pollingInterval;
     this.login = this.login.bind(this);
     this.restore = this.restore.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   getContractFromTransaction(transactions) {
@@ -67,7 +71,7 @@ class WebTransportLink {
 
   async signTransaction(transaction, options) {
     if (!transaction)
-      throw new UALSeedsWalletError(
+      throw new UALHyphaWalletError(
         "No transaction has been passed to sign transaction"
       );
     const { pollingInterval } = this;
@@ -112,14 +116,19 @@ class WebTransportLink {
     console.log("TRANSACTION INFO: ", transactionInfo);
 
     localStorage.setItem(
-      `UALSeedsAccount`,
+      StorageSessionKey,
       JSON.stringify({ accountName, loginCode, txId })
     );
     return accountName;
   }
 
+  logout() {
+    localStorage.removeItem(StorageSessionKey);
+  }
+
+
   async restore() {
-    const savedSessionRaw = await localStorage.getItem(`UALSeedsAccount`);
+    const savedSessionRaw = await localStorage.getItem(StorageSessionKey);
 
     if (!savedSessionRaw) return;
 

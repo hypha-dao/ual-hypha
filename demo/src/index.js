@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { SeedsAuthenticator } from "ual-hypha-wallet";
+import { HyphaAuthenticator } from "ual-hypha-wallet";
 import { UALProvider, withUAL } from "ual-reactjs-renderer";
 import "./index.css";
 import App from "./App";
@@ -45,7 +45,7 @@ const myChain = {
   ],
 };
 
-const seeds = new SeedsAuthenticator([telosChain], { appName: "Seeds App" });
+const seeds = new HyphaAuthenticator([telosChain], { appName: "Seeds App" });
 
 const MyUALConsumer = withUAL(App);
 
