@@ -45,7 +45,7 @@ const myChain = {
   ],
 };
 
-const seeds = new HyphaAuthenticator([telosChain], { appName: "Seeds App" });
+const hyphaAuthenticator = new HyphaAuthenticator([telosChain], { appName: "Hypha App" });
 
 const MyUALConsumer = withUAL(App);
 
@@ -53,8 +53,8 @@ ReactDOM.render(
   <React.StrictMode>
     <UALProvider
       chains={[telosChain]}
-      authenticators={[seeds]}
-      appName={"Seeds App"}
+      authenticators={[hyphaAuthenticator]}
+      appName={"Hypha App"}
     >
       <MyUALConsumer />
     </UALProvider>
