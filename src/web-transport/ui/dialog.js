@@ -1,4 +1,4 @@
-import { SeedsLogo } from "../../logo.js";
+import { Logo } from "../../logo.js";
 import styleText from "../styles/index.js";
 
 const removeChilds = (parent) => {
@@ -107,7 +107,7 @@ class Dialog {
     const infoLogo = this.createEl({
       class: "logo",
       tag: "img",
-      src: SeedsLogo,
+      src: Logo,
     });
     this.requestEl.appendChild(infoLogo);
 

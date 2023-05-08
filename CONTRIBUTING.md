@@ -1,20 +1,20 @@
-# Contributing to UAL Seeds
+# Contributing to UAL Hypha
 
 Interested in contributing? That's awesome! Here are some guidelines to get started quickly and easily:
 
-- [Contributing to UAL Seeds](#contributing-to-ual-hypha)
+- [Contributing to UAL Hypha](#contributing-to-ual-hypha)
   - [Reporting An Issue](#reporting-an-issue)
     - [Bug Reports](#bug-reports)
     - [Feature Requests](#feature-requests)
     - [Change Requests](#change-requests)
-  - [Working on UAL Seeds](#working-on-ual-hypha)
+  - [Working on UAL Hypha](#working-on-ual-hypha)
     - [Feature Branches](#feature-branches)
     - [Submitting Pull Requests](#submitting-pull-requests)
     - [Testing and Quality Assurance](#testing-and-quality-assurance)
 
 ## Reporting An Issue
 
-If you're about to raise an issue because you think you've found a problem with UAL Seeds, or you'd like to make a request for a new feature in the codebase, or any other reason… please read this first.
+If you're about to raise an issue because you think you've found a problem with UAL Hypha, or you'd like to make a request for a new feature in the codebase, or any other reason… please read this first.
 
 The GitHub issue tracker is the preferred channel for [bug reports](#bug-reports), [feature requests](#feature-requests), and [submitting pull requests](#submitting-pull-requests), but please respect the following restrictions:
 
@@ -49,13 +49,13 @@ Feature requests are welcome. Before you submit one be sure to have:
 
 ### Change Requests
 
-Change requests cover both architectural and functional changes to how UAL Seeds works. If you have an idea for a new or different dependency, a refactor, or an improvement to a feature, etc - please be sure to:
+Change requests cover both architectural and functional changes to how UAL Hypha works. If you have an idea for a new or different dependency, a refactor, or an improvement to a feature, etc - please be sure to:
 
 1. **Use the GitHub search** and check someone else didn't get there first
 1. Take a moment to think about the best way to make a case for, and explain what you're thinking. Are you sure this shouldn't really be
    a [bug report](#bug-reports) or a [feature request](#feature-requests)?  Is it really one idea or is it many? What's the context? What problem are you solving? Why is what you are suggesting better than what's already there?
 
-## Working on UAL Seeds
+## Working on UAL Hypha
 
 Code contributions are welcome and encouraged! If you are looking for a good place to start, check out the [good first issue](https://github.com/hypha-dao/ual-hypha/labels/good%20first%20issue) label in GitHub issues.
 
@@ -66,7 +66,7 @@ Also, please follow these guidelines when submitting code:
 To get it out of the way:
 
 - **[develop](https://github.com/hypha-dao/ual-hypha/tree/develop)** is the development branch. All work on the next release happens here so you should generally branch off `develop`. Do **NOT** use this branch for a production site.
-- **[master](https://github.com/hypha-dao/ual-hypha/tree/master)** contains the latest release of UAL Seeds. This branch may be used in production. Do **NOT** use this branch to work on UAL Seeds's source.
+- **[master](https://github.com/hypha-dao/ual-hypha/tree/master)** contains the latest release of UAL Hypha. This branch may be used in production. Do **NOT** use this branch to work on UAL Hypha's source.
 
 ### Submitting Pull Requests
 

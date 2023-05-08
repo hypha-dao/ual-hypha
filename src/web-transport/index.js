@@ -1,8 +1,10 @@
 import Dialog from "./ui/dialog.js";
 import QRCode from "qrcode";
 import { poll, getTransactionUID } from "../utils/index.js";
-import { SEEDS_CALLBACK_HOST } from "../../config/index.js";
-import { UALSeedsWalletError } from "../UALHyphaWalletError.js";
+import { CALLBACK_HOST } from "../../config/index.js";
+import { UALHyphaWalletError } from "../UALHyphaWalletError.js";
+
+const StorageSessionKey = `UALStorageSessionKey`;
 
 const checkLoginData = function (transaction, loginCode) {
   const actions = transaction.traces;
@@ -18,6 +20,7 @@ const checkLoginData = function (transaction, loginCode) {
   return data.account_name;
 };
 
+
 class WebTransportLink {
   constructor(esrUtil, pollingInterval = 2000) {
     this.dialog = new Dialog();
@@ -26,6 +29,7 @@ class WebTransportLink {
     this.pollingInterval = pollingInterval;
     this.login = this.login.bind(this);
     this.restore = this.restore.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   getContractFromTransaction(transactions) {
@@ -33,7 +37,7 @@ class WebTransportLink {
   }
 
   async checkForConfirmation(uid) {
-    const pollingUrl = `${SEEDS_CALLBACK_HOST}/transaction/${uid}`;
+    const pollingUrl = `${CALLBACK_HOST}/transaction/${uid}`;
 
     try {
       const response = await fetch(pollingUrl);
@@ -51,10 +55,10 @@ class WebTransportLink {
       title: options.title || "Sign Transaction",
       subtitle:
         options.subtitle ||
-        "Scan the QR-code with SEEDS Light Wallet on another device or use the button to open SEEDS Desktop Wallet on this device.",
+        "Scan the QR-code with Hypha Wallet or use the button to open a desktop wallet on this device.",
       qrCode,
       action: {
-        text: options.actionText || "Launch SEEDS Desktop",
+        text: options.actionText || "Launch On Desktop",
         callback:
           options.actionCallback ||
           function () {
@@ -67,12 +71,12 @@ class WebTransportLink {
 
   async signTransaction(transaction, options) {
     if (!transaction)
-      throw new UALSeedsWalletError(
+      throw new UALHyphaWalletError(
         "No transaction has been passed to sign transaction"
       );
     const { pollingInterval } = this;
     const uid = getTransactionUID(transaction);
-    const callbackUrl = `${SEEDS_CALLBACK_HOST}/transaction?uid=${uid}&tx_id={{tx}}`;
+    const callbackUrl = `${CALLBACK_HOST}/transaction?uid=${uid}&tx_id={{tx}}`;
     const esr = await this.esrUtil.encodeESR(
       transaction.actions,
       {
@@ -102,7 +106,7 @@ class WebTransportLink {
     const options = {
       title: "Login",
       subtitle:
-        "Scan the QR-code with SEEDS Light Wallet on another device or use the button to open SEEDS Desktop Wallet on this device.",
+        "Scan the QR-code with Hypha Wallet or use the button to open a desktop wallet on this device.",
     };
 
     const transactionInfo = await this.signTransaction({ actions }, options);
@@ -112,14 +116,19 @@ class WebTransportLink {
     console.log("TRANSACTION INFO: ", transactionInfo);
 
     localStorage.setItem(
-      `UALSeedsAccount`,
+      StorageSessionKey,
       JSON.stringify({ accountName, loginCode, txId })
     );
     return accountName;
   }
 
+  logout() {
+    localStorage.removeItem(StorageSessionKey);
+  }
+
+
   async restore() {
-    const savedSessionRaw = await localStorage.getItem(`UALSeedsAccount`);
+    const savedSessionRaw = await localStorage.getItem(StorageSessionKey);
 
     if (!savedSessionRaw) return;
 

@@ -33,7 +33,7 @@ test("Decoded ESR returns appropriate action", async () => {
 test("Encode action into ESR", async () => {
   const encodedESR = await esrUtil.encodeESR(
     TEST_ACTION,
-    "https://joinseeds.earth/transaction/123"
+    "https://hypha.earth/transaction/123"
   );
   console.log("ENCODED ESR: ", encodedESR);
   expect(encodedESR).toBeTruthy();

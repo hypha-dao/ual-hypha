@@ -4,13 +4,13 @@ import { useEffect } from "react";
 
 const getTransaction = (account) => [
   {
-    account: "token.seeds",
+    account: "hypha.hypha",
     name: "transfer",
     authorization: [{ actor: account, permission: "active" }],
     data: {
       from: account,
       to: "testingseeds",
-      quantity: "1 HYPHA",
+      quantity: "0.01 HYPHA",
       memo: "Testing ual-hypha",
     },
   },
@@ -51,7 +51,7 @@ function App(props) {
         ) : (
           <button onClick={ual.showModal}>LOGIN</button>
         )}
-
+        
         {activeUser && <button onClick={transfer}>TEST TRANSFER</button>}
       </header>
     </div>
