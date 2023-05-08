@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { useEffect } from "react";
 
@@ -39,7 +38,6 @@ function App(props) {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           {activeUser
             ? `Authenticated as ${activeUser.accountName}`
@@ -51,7 +49,7 @@ function App(props) {
         ) : (
           <button onClick={ual.showModal}>LOGIN</button>
         )}
-        
+
         {activeUser && <button onClick={transfer}>TEST TRANSFER</button>}
       </header>
     </div>
