@@ -1,19 +1,21 @@
 import "./App.css";
 import { useEffect } from "react";
 
-const getTransaction = (account) => [
-  {
-    account: "hypha.hypha",
-    name: "transfer",
-    authorization: [{ actor: account, permission: "active" }],
-    data: {
-      from: account,
-      to: "testingseeds",
-      quantity: "0.01 HYPHA",
-      memo: "Testing ual-hypha",
+const getTransaction = (account) => ({
+  actions: [
+    {
+      account: "hypha.hypha",
+      name: "transfer",
+      authorization: [{ actor: account, permission: "active" }],
+      data: {
+        from: account,
+        to: "testingseeds",
+        quantity: "0.01 HYPHA",
+        memo: "Testing ual-hypha",
+      },
     },
-  },
-];
+  ],
+});
 
 function App(props) {
   const { ual = {} } = props;

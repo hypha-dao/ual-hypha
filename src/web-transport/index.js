@@ -122,7 +122,15 @@ class WebTransportLink {
   }
 
   logout() {
-    localStorage.removeItem(StorageSessionKey);
+    const logoutAction = new Promise(async (resolve, reject) => {
+      try {
+        await localStorage.removeItem(StorageSessionKey);
+        resolve("logout success");
+      } catch (error) {
+        reject(error);
+      }
+    });
+    return logoutAction;
   }
 
   async restore() {

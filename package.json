@@ -1,5 +1,5 @@
 {
-  "name": "ual-hypha",
+  "name": "@hypha-dao/ual-hypha",
   "version": "1.0.0",
   "description": "UAL implementation for Hypha Wallet",
   "type": "module",
@@ -19,6 +19,7 @@
     "@babel/core": "^7.21.4",
     "@babel/plugin-proposal-class-properties": "^7.16.7",
     "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.18.6",
     "@greymass/eosio": "^0.5.5",
     "buffer": "^6.0.3",
     "eosio-signing-request": "^2.4.0",

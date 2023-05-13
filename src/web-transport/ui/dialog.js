@@ -3,7 +3,7 @@ import { CloseIcon } from "../../assets/CloseIcon.js";
 import styleText from "../styles/index.js";
 
 const removeChilds = (parent) => {
-  while (parent.lastChild) {
+  while (parent?.lastChild) {
     parent.removeChild(parent.lastChild);
   }
 };
@@ -77,7 +77,7 @@ class Dialog {
     }
     if (!this.containerEl) {
       this.ualBox = document.getElementById("ual-box");
-      this.ualBox.remove();
+      // this.ualBox.remove();
       this.containerEl = this.createEl();
       this.containerEl.className = this.classPrefix;
       this.containerEl.onclick = (event) => {
