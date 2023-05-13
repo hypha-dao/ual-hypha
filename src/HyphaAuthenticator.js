@@ -9,7 +9,7 @@ import {
   BUTTON_BACKGROUND_COLOR,
   BUTTON_TEXT_COLOR,
 } from "../config/index.js";
-import { Logo } from "./logo.js";
+import { HyphaLogo } from "./assets/HyphaLogo.js";
 import { HyphaUser } from "./HyphaUser.js";
 
 import { randomNumber } from "./utils/index.js";
@@ -94,7 +94,7 @@ export class HyphaAuthenticator extends Authenticator {
    */
   getStyle() {
     return {
-      icon: Logo,
+      icon: HyphaLogo,
       text: this.authenticatorName,
       textColor: BUTTON_TEXT_COLOR,
       background: BUTTON_BACKGROUND_COLOR,
@@ -162,7 +162,7 @@ export class HyphaAuthenticator extends Authenticator {
    * Logs the user out of the dapp. This will be strongly dependent on each Authenticator app's patterns.
    */
   logout() {
-    console.log('LOGOUT FROM THE DAPP: ', this.transport);
+    console.log("LOGOUT FROM THE DAPP: ", this.transport);
     return this.transport?.logout();
   }
 

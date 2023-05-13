@@ -46,12 +46,13 @@ const myChain = {
 };
 
 const hyphaEOSAuthenticator = new HyphaAuthenticator([eosChain], {
-  appName: "Hypha App",
+  appName: "Hypha Wallet EOS",
   loginContract: "logintohypha",
-  authenticatorName: "Hypha EOS Login",
+  authenticatorName: "Hypha Wallet EOS",
 });
 const hyphaTelosAuthenticator = new HyphaAuthenticator([telosChain], {
-  appName: "Hypha Telos App",
+  appName: "Hypha Wallet Telos",
+  authenticatorName: "Hypha Wallet Telos",
 });
 
 const MyUALConsumer = withUAL(App);
