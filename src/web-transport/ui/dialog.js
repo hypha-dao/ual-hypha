@@ -3,7 +3,7 @@ import { CloseIcon } from "../../assets/CloseIcon.js";
 import styleText from "../styles/index.js";
 
 const removeChilds = (parent) => {
-  while (parent?.lastChild) {
+  while (parent.lastChild) {
     parent.removeChild(parent.lastChild);
   }
 };
