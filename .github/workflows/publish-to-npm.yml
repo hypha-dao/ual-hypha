@@ -1,14 +1,9 @@
 name: Publish to npm
 
-# on:
-#   release:
-#     types:
-#       - created
-
 on:
-  push:
-    branches:
-      - feat/hypha-branding
+  release:
+    types:
+      - published
 
 jobs:
   publish:
