@@ -6,13 +6,13 @@ import { UALHyphaWalletError } from "../UALHyphaWalletError.js";
 
 const StorageSessionKey = `UALStorageSessionKey`;
 
-const checkLoginData = function (transaction, loginCode) {
+const checkLoginData = function (transaction, loginCode, loginContract) {
   const actions = transaction.traces;
   const loginAction =
     actions &&
     actions
       .map((action) => action.act)
-      .find((action) => action && action.account === "eosio.login");
+      .find((action) => action && action.account === loginContract);
   if (!loginAction) throw new Error("unauthorized");
 
   const { data } = loginAction;
@@ -102,7 +102,7 @@ class WebTransportLink {
     return transactionInfo;
   }
 
-  async login(actions, loginCode) {
+  async login(actions, loginCode, loginContract) {
     const options = {
       title: "Login",
       subtitle:
@@ -110,7 +110,11 @@ class WebTransportLink {
     };
 
     const transactionInfo = await this.signTransaction({ actions }, options);
-    const accountName = checkLoginData(transactionInfo, loginCode);
+    const accountName = checkLoginData(
+      transactionInfo,
+      loginCode,
+      loginContract
+    );
 
     const txId = transactionInfo.id;
 

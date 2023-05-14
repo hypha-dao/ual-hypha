@@ -140,7 +140,11 @@ export class HyphaAuthenticator extends Authenticator {
       });
 
       if (this.users.length === 0) {
-        const accountName = await this.transport.login(action, loginCode);
+        const accountName = await this.transport.login(
+          action,
+          loginCode,
+          this.loginContract
+        );
         if (accountName) {
           this.users = [new HyphaUser(this.transport, accountName)];
         } else {
