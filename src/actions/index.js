@@ -4,12 +4,13 @@ export const ACTION_LOGIN = "loginuser";
 
 export const generateAuthenticateAction = function ({
   loginCode,
+  loginContract,
   actor = "............1",
   permission = "............2",
 }) {
   return [
     {
-      account: ACCOUNT_LOGIN,
+      account: loginContract,
       name: ACTION_LOGIN,
       authorization: [
         {

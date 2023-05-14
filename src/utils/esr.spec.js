@@ -26,7 +26,6 @@ const TEST_ACTION = [
 
 test("Decoded ESR returns appropriate action", async () => {
   const decodedESR = await esrUtil.decodeESR(TEST_ESR);
-  console.log("DECODED ESR: ", decodedESR);
   expect(decodedESR.data).toBeTruthy();
 });
 
@@ -35,6 +34,5 @@ test("Encode action into ESR", async () => {
     TEST_ACTION,
     "https://hypha.earth/transaction/123"
   );
-  console.log("ENCODED ESR: ", encodedESR);
   expect(encodedESR).toBeTruthy();
 });

@@ -20,7 +20,6 @@ const checkLoginData = function (transaction, loginCode) {
   return data.account_name;
 };
 
-
 class WebTransportLink {
   constructor(esrUtil, pollingInterval = 2000) {
     this.dialog = new Dialog();
@@ -53,10 +52,11 @@ class WebTransportLink {
   getDialog(options, qrCode, esr) {
     return {
       title: options.title || "Sign Transaction",
-      subtitle:
-        options.subtitle ||
-        "Scan the QR-code with Hypha Wallet or use the button to open a desktop wallet on this device.",
+      text:
+        options.text ||
+        "Scan the QR-code with Hypha Wallet on your mobile device in order to sign this transaction request",
       qrCode,
+      esr,
       action: {
         text: options.actionText || "Launch On Desktop",
         callback:
@@ -113,7 +113,6 @@ class WebTransportLink {
     const accountName = checkLoginData(transactionInfo, loginCode);
 
     const txId = transactionInfo.id;
-    console.log("TRANSACTION INFO: ", transactionInfo);
 
     localStorage.setItem(
       StorageSessionKey,
@@ -123,9 +122,16 @@ class WebTransportLink {
   }
 
   logout() {
-    localStorage.removeItem(StorageSessionKey);
+    const logoutAction = new Promise(async (resolve, reject) => {
+      try {
+        await localStorage.removeItem(StorageSessionKey);
+        resolve("logout success");
+      } catch (error) {
+        reject(error);
+      }
+    });
+    return logoutAction;
   }
-
 
   async restore() {
     const savedSessionRaw = await localStorage.getItem(StorageSessionKey);

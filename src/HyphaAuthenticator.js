@@ -9,11 +9,11 @@ import {
   BUTTON_BACKGROUND_COLOR,
   BUTTON_TEXT_COLOR,
 } from "../config/index.js";
-import { Logo } from "./logo.js";
+import { HyphaLogo } from "./assets/HyphaLogo.js";
 import { HyphaUser } from "./HyphaUser.js";
 
 import { randomNumber } from "./utils/index.js";
-import { generateAuthenticateAction } from "./actions/index.js";
+import { ACCOUNT_LOGIN, generateAuthenticateAction } from "./actions/index.js";
 
 export class HyphaAuthenticator extends Authenticator {
   constructor(chains, options) {
@@ -27,6 +27,8 @@ export class HyphaAuthenticator extends Authenticator {
     const url = `${rpc.protocol}://${rpc.host}:${rpc.port}`;
     const esrUtil = new ESRUtil(url);
     this.esrUtil = esrUtil;
+    this.authenticatorName = options.authenticatorName || AUTHENTICATOR_NAME;
+    this.loginContract = options.loginContract || ACCOUNT_LOGIN;
 
     if (options && options.client) {
       this.client = options.client;
@@ -84,7 +86,7 @@ export class HyphaAuthenticator extends Authenticator {
    * Returns name of authenticator
    */
   getName() {
-    return AUTHENTICATOR_NAME;
+    return this.authenticatorName;
   }
 
   /**
@@ -92,8 +94,8 @@ export class HyphaAuthenticator extends Authenticator {
    */
   getStyle() {
     return {
-      icon: Logo,
-      text: AUTHENTICATOR_NAME,
+      icon: HyphaLogo,
+      text: this.authenticatorName,
       textColor: BUTTON_TEXT_COLOR,
       background: BUTTON_BACKGROUND_COLOR,
     };
@@ -132,13 +134,13 @@ export class HyphaAuthenticator extends Authenticator {
   async login() {
     try {
       const loginCode = randomNumber();
-      const action = generateAuthenticateAction({ loginCode });
+      const action = generateAuthenticateAction({
+        loginCode,
+        loginContract: this.loginContract,
+      });
 
-      console.log("USERS: ", this.users);
       if (this.users.length === 0) {
-        console.log("ACTION CODE: ", action, loginCode);
         const accountName = await this.transport.login(action, loginCode);
-        console.log("TRANSACTION INFO accountName: ", accountName);
         if (accountName) {
           this.users = [new HyphaUser(this.transport, accountName)];
         } else {
@@ -160,8 +162,7 @@ export class HyphaAuthenticator extends Authenticator {
    * Logs the user out of the dapp. This will be strongly dependent on each Authenticator app's patterns.
    */
   logout() {
-    console.log('logout');
-    this.transport.logout();
+    return this.transport.logout();
   }
 
   /**

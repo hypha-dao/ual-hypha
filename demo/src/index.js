@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import { HyphaAuthenticator } from "ual-hypha-wallet";
 import { UALProvider, withUAL } from "ual-reactjs-renderer";
 import "./index.css";
@@ -45,21 +45,31 @@ const myChain = {
   ],
 };
 
-const hyphaAuthenticator = new HyphaAuthenticator([telosChain], { appName: "Hypha App" });
+const hyphaEOSAuthenticator = new HyphaAuthenticator([eosChain], {
+  appName: "Hypha Wallet EOS",
+  loginContract: "logintohypha",
+  authenticatorName: "Hypha Wallet EOS",
+});
+const hyphaTelosAuthenticator = new HyphaAuthenticator([telosChain], {
+  appName: "Hypha Wallet Telos",
+  authenticatorName: "Hypha Wallet Telos",
+});
 
 const MyUALConsumer = withUAL(App);
 
-ReactDOM.render(
+const container = document.getElementById("root");
+const root = createRoot(container);
+
+root.render(
   <React.StrictMode>
     <UALProvider
       chains={[telosChain]}
-      authenticators={[hyphaAuthenticator]}
+      authenticators={[hyphaEOSAuthenticator, hyphaTelosAuthenticator]}
       appName={"Hypha App"}
     >
       <MyUALConsumer />
     </UALProvider>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

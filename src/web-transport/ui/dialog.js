@@ -1,4 +1,5 @@
 import { Logo } from "../../logo.js";
+import { CloseIcon } from "../../assets/CloseIcon.js";
 import styleText from "../styles/index.js";
 
 const removeChilds = (parent) => {
@@ -37,6 +38,9 @@ class Dialog {
           break;
         case "tag":
           break;
+        case "html":
+          el.innerHTML = value;
+          break;
         case "content":
           if (typeof value === "string") {
             el.appendChild(document.createTextNode(value));
@@ -72,6 +76,8 @@ class Dialog {
       document.head.appendChild(this.styleEl);
     }
     if (!this.containerEl) {
+      this.ualBox = document.getElementById("ual-box");
+      // this.ualBox.remove();
       this.containerEl = this.createEl();
       this.containerEl.className = this.classPrefix;
       this.containerEl.onclick = (event) => {
@@ -84,20 +90,23 @@ class Dialog {
     }
 
     if (!this.requestEl) {
-      const wrapper = this.createEl({ class: "inner" });
-      const closeButton = this.createEl({ class: "close" });
+      const wrapper = this.createEl({ class: "wrapper" });
+      const topBanner = this.createEl({ class: "top-banner" });
+      const closeButton = this.createEl({ class: "close", html: CloseIcon });
       closeButton.onclick = (event) => {
         event.stopPropagation();
         this.hide();
       };
       this.requestEl = this.createEl({ class: "request" });
+      topBanner.appendChild(closeButton);
+
+      wrapper.appendChild(topBanner);
       wrapper.appendChild(this.requestEl);
-      wrapper.appendChild(closeButton);
       this.containerEl.appendChild(wrapper);
     }
   }
 
-  showDialog({ title, subtitle, qrCode, action, footnote }) {
+  showDialog({ title, text, qrCode, esr, action, footnote }) {
     this.setupElements();
 
     removeChilds(this.requestEl);
@@ -106,10 +115,12 @@ class Dialog {
 
     const infoLogo = this.createEl({
       class: "logo",
-      tag: "img",
-      src: Logo,
+      tag: "svg",
+      html: Logo,
     });
     this.requestEl.appendChild(infoLogo);
+
+    const content = this.createEl({ class: "content" });
 
     if (title) {
       const infoTitle = this.createEl({
@@ -117,38 +128,43 @@ class Dialog {
         tag: "h2",
         content: title,
       });
-      this.requestEl.appendChild(infoTitle);
+      content.appendChild(infoTitle);
     }
-    if (subtitle) {
-      const infoSubtitle = this.createEl({
-        class: "subtitle",
+    if (text) {
+      const infoText = this.createEl({
+        class: "text",
         tag: "p",
-        content: subtitle,
+        content: text,
       });
-      this.requestEl.appendChild(infoSubtitle);
+      content.appendChild(infoText);
     }
-    this.containerEl.appendChild(infoEl);
 
     if (qrCode) {
+      const qrArea = this.createEl({ class: "qr-area" });
+
       const requestQRCode = this.createEl({
-        class: "qrcode",
+        class: "qr-here",
         tag: "img",
         src: qrCode,
       });
-      this.requestEl.appendChild(requestQRCode);
+
+      qrArea.appendChild(requestQRCode);
+      content.appendChild(qrArea);
     }
+
+    this.requestEl.appendChild(content);
+    this.containerEl.appendChild(infoEl);
 
     if (action) {
       const buttonEl = this.createEl({
-        tag: "a",
-        class: "button",
+        tag: "button",
         text: action.text,
       });
       buttonEl.addEventListener("click", (event) => {
         event.preventDefault();
         action && action.callback();
       });
-      this.requestEl.appendChild(buttonEl);
+      content.appendChild(buttonEl);
     }
 
     if (footnote) {

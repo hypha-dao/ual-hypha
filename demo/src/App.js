@@ -1,20 +1,21 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { useEffect } from "react";
 
-const getTransaction = (account) => [
-  {
-    account: "hypha.hypha",
-    name: "transfer",
-    authorization: [{ actor: account, permission: "active" }],
-    data: {
-      from: account,
-      to: "testingseeds",
-      quantity: "0.01 HYPHA",
-      memo: "Testing ual-hypha",
+const getTransaction = (account) => ({
+  actions: [
+    {
+      account: "hypha.hypha",
+      name: "transfer",
+      authorization: [{ actor: account, permission: "active" }],
+      data: {
+        from: account,
+        to: "testingseeds",
+        quantity: "0.01 HYPHA",
+        memo: "Testing ual-hypha",
+      },
     },
-  },
-];
+  ],
+});
 
 function App(props) {
   const { ual = {} } = props;
@@ -39,7 +40,6 @@ function App(props) {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
           {activeUser
             ? `Authenticated as ${activeUser.accountName}`
@@ -51,7 +51,7 @@ function App(props) {
         ) : (
           <button onClick={ual.showModal}>LOGIN</button>
         )}
-        
+
         {activeUser && <button onClick={transfer}>TEST TRANSFER</button>}
       </header>
     </div>
