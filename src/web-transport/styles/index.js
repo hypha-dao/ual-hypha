@@ -104,7 +104,7 @@ export default `
   box-sizing: border-box;
   border:2px solid var(--blu);
   border-radius:8px;
-  padding:10px;
+  padding:1px;
   margin-top:8px;
   display: inline-block;
 }
