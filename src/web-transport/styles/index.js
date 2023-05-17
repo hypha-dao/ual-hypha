@@ -74,6 +74,7 @@ export default `
   height:60px;
   transform:translateY(-20px);
   margin-bottom:-20px;
+  display:block;
 }
 
 .%prefix%-logo svg {
