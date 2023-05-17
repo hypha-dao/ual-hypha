@@ -88,7 +88,13 @@ class WebTransportLink {
         tx_id: "{{tx}}",
       }
     );
-    const qrCode = await QRCode.toDataURL(esr);
+    
+    const qrCode = await QRCode.toDataURL(esr, {
+      color: {
+        dark: '#ffffff',
+        light: '#131C32',
+      }
+    });
 
     const dialog = this.getDialog(options, qrCode, esr);
 
