@@ -61,7 +61,7 @@ class Dialog {
     return el;
   }
 
-  setupElements() {
+  setupElements(wrapperBaseSize) {
     if (!this.styleEl) {
       this.styleEl = document.createElement("style");
       this.styleEl.type = "text/css";
@@ -91,6 +91,8 @@ class Dialog {
 
     if (!this.requestEl) {
       const wrapper = this.createEl({ class: "wrapper" });
+      wrapper.style.setProperty('--wrapper-base-size', `${wrapperBaseSize}px`);
+
       const topBanner = this.createEl({ class: "top-banner" });
       const closeButton = this.createEl({ class: "close", html: CloseIcon });
       closeButton.onclick = (event) => {
@@ -106,8 +108,23 @@ class Dialog {
     }
   }
 
+  calculateWrapperBaseSize(esr) {
+    const esrMin = 512;
+    const esrMax = 3000;
+    const newMin = 380;
+    const newMax = 700;
+
+    let esrLength = esr.length;
+
+    let wrapperBaseSize = (esrLength - esrMin) / (esrMax - esrMin) * (newMax - newMin) + newMin;
+    return Math.max(newMin, Math.min(newMax, wrapperBaseSize)); // Ensure wrapperBaseSize stays within bounds
+  }
+
   showDialog({ title, text, qrCode, esr, action, footnote }) {
-    this.setupElements();
+    const wrapperBaseSize = this.calculateWrapperBaseSize(esr);
+    const qrAreaBaseSize = wrapperBaseSize - 42;
+
+    this.setupElements(wrapperBaseSize);
 
     removeChilds(this.requestEl);
 
@@ -140,7 +157,9 @@ class Dialog {
     }
 
     if (qrCode) {
+
       const qrArea = this.createEl({ class: "qr-area" });
+      qrArea.style.setProperty('--qr-area-base-size', `${qrAreaBaseSize}px`);
 
       const requestQRCode = this.createEl({
         class: "qr-here",
