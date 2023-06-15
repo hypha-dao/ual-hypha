@@ -29,8 +29,8 @@ export default `
  
 .%prefix%-wrapper {
   display: none;
-  width:280px;
-  min-height: 280px;
+  width:380px;
+  min-height: 380px;
   background-color:var(--dark-blu);
   border-radius:20px;
   box-shadow:0px 0px 20px rgba(0,0,0,0.2);
@@ -99,8 +99,8 @@ export default `
 }
 
 .%prefix%-qr-area {
-  width:238px;
-  height:238px;
+  width:338px;
+  height:338px;
   box-sizing: border-box;
   border:2px solid var(--blu);
   border-radius:8px;
