@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.5](https://github.com/hypha-dao/ual-hypha/compare/v1.0.4...v1.0.5) (2023-06-15)
+
+
+### Bug Fixes
+
+* default link is valid for onboarding ([1111971](https://github.com/hypha-dao/ual-hypha/commit/11119715d3bbb5f637b5f3210ad371a688a9cfc4))
+* resizes the QR code based on the ESR length ([5150a75](https://github.com/hypha-dao/ual-hypha/commit/5150a7528542fb9cec0a331c6ad05c5f22955060))
+
 ## [1.0.4](https://github.com/hypha-dao/ual-hypha/compare/v1.0.3...v1.0.4) (2023-06-15)
 
 
