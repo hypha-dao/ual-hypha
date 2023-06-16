@@ -30,7 +30,6 @@ export default `
 .%prefix%-wrapper {
   display: none;
   width: var(--wrapper-base-size);
-  height: var(--wrapper-base-size);
   background-color:var(--dark-blu);
   border-radius:20px;
   box-shadow:0px 0px 20px rgba(0,0,0,0.2);
