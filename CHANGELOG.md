@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.6](https://github.com/hypha-dao/ual-hypha/compare/v1.0.5...v1.0.6) (2023-06-16)
+
+
+### Bug Fixes
+
+* fix broken layout ([4d092d2](https://github.com/hypha-dao/ual-hypha/commit/4d092d25af46f725b90f01c53d42ab2ac04ac20d))
+
 ## [1.0.5](https://github.com/hypha-dao/ual-hypha/compare/v1.0.4...v1.0.5) (2023-06-15)
 
 
