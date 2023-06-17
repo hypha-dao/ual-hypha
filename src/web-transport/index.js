@@ -88,12 +88,12 @@ class WebTransportLink {
         tx_id: "{{tx}}",
       }
     );
-    
+
     const qrCode = await QRCode.toDataURL(esr, {
       color: {
-        dark: '#ffffff',
-        light: '#131C32',
-      }
+        dark: "#ffffff",
+        light: "#131C32",
+      },
     });
 
     const dialog = this.getDialog(options, qrCode, esr);
@@ -143,7 +143,7 @@ class WebTransportLink {
     return logoutAction;
   }
 
-  async restore() {
+  async restore(loginContract) {
     const savedSessionRaw = await localStorage.getItem(StorageSessionKey);
 
     if (!savedSessionRaw) return;
@@ -152,7 +152,11 @@ class WebTransportLink {
 
     const transactionInfo = await this.rpc.history_get_transaction(txId);
 
-    const isLoginValid = checkLoginData(transactionInfo, loginCode);
+    const isLoginValid = checkLoginData(
+      transactionInfo,
+      loginCode,
+      loginContract
+    );
 
     return isLoginValid && accountName;
   }

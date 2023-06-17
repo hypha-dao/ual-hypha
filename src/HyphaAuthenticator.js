@@ -46,7 +46,7 @@ export class HyphaAuthenticator extends Authenticator {
    * Called after `shouldRender` and should be used to handle any async actions required to initialize the authenticator
    */
   async init() {
-    const session = await this.transport.restore();
+    const session = await this.transport.restore(this.loginContract);
     if (session) {
       this.users = [new HyphaUser(this.transport, session)];
     }
