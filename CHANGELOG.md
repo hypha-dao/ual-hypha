@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.7](https://github.com/hypha-dao/ual-hypha/compare/v1.0.6...v1.0.7) (2023-06-17)
+
+
+### Bug Fixes
+
+* pass the login contract name to restore method ([2c187ca](https://github.com/hypha-dao/ual-hypha/commit/2c187ca08cb4358d6bc33f43442cef3456379c5d))
+
 ## [1.0.6](https://github.com/hypha-dao/ual-hypha/compare/v1.0.5...v1.0.6) (2023-06-16)
 
 
