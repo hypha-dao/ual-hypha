@@ -108,21 +108,23 @@ class Dialog {
     }
   }
 
-  calculateWrapperBaseSize(esr) {
-    const esrMin = 512;
-    const esrMax = 3000;
-    const newMin = 380;
-    const newMax = 700;
+  getImageSize(dataUrl) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = function() {
+            resolve({ width: this.width, height: this.height });
+        };
+        img.onerror = function() {
+            reject(new Error('Could not load image'));
+        };
+        img.src = dataUrl;
+    });
+}
 
-    let esrLength = esr.length;
-
-    let wrapperBaseSize = (esrLength - esrMin) / (esrMax - esrMin) * (newMax - newMin) + newMin;
-    return Math.max(newMin, Math.min(newMax, wrapperBaseSize)); // Ensure wrapperBaseSize stays within bounds
-  }
-
-  showDialog({ title, text, qrCode, esr, action, footnote }) {
-    const wrapperBaseSize = this.calculateWrapperBaseSize(esr);
-    const qrAreaBaseSize = wrapperBaseSize - 42;
+  async showDialog({ title, text, qrCode, esr, action, footnote }) {
+    const imageSize = await this.getImageSize(qrCode)
+    const qrAreaBaseSize = Math.max(imageSize.width, 380)
+    const wrapperBaseSize = qrAreaBaseSize + 42
 
     this.setupElements(wrapperBaseSize);
 
