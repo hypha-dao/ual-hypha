@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.9](https://github.com/hypha-dao/ual-hypha/compare/v1.0.8...v1.0.9) (2023-06-23)
+
+
+### Bug Fixes
+
+* fixing logout function ([e84bfee](https://github.com/hypha-dao/ual-hypha/commit/e84bfeec62a5f4da67e013321001e9714c732f85))
+* fixing logout function ([c10f3aa](https://github.com/hypha-dao/ual-hypha/commit/c10f3aaf782fd7ff10f90b5400f07ebe4705dcc8))
+
 ## [1.0.7](https://github.com/hypha-dao/ual-hypha/compare/v1.0.6...v1.0.7) (2023-06-17)
 
 
