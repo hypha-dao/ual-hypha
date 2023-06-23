@@ -166,6 +166,7 @@ export class HyphaAuthenticator extends Authenticator {
    * Logs the user out of the dapp. This will be strongly dependent on each Authenticator app's patterns.
    */
   logout() {
+    this.users = []
     return this.transport.logout();
   }
 
