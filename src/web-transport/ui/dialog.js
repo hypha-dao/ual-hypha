@@ -90,8 +90,7 @@ class Dialog {
     }
 
     if (!this.requestEl) {
-      const wrapper = this.createEl({ class: "wrapper" });
-      wrapper.style.setProperty('--wrapper-base-size', `${wrapperBaseSize}px`);
+      this.wrapper = this.createEl({ class: "wrapper" });
 
       const topBanner = this.createEl({ class: "top-banner" });
       const closeButton = this.createEl({ class: "close", html: CloseIcon });
@@ -102,10 +101,12 @@ class Dialog {
       this.requestEl = this.createEl({ class: "request" });
       topBanner.appendChild(closeButton);
 
-      wrapper.appendChild(topBanner);
-      wrapper.appendChild(this.requestEl);
-      this.containerEl.appendChild(wrapper);
+      this.wrapper.appendChild(topBanner);
+      this.wrapper.appendChild(this.requestEl);
+      this.containerEl.appendChild(this.wrapper);
     }
+    this.wrapper.style.setProperty('--wrapper-base-size', `${wrapperBaseSize}px`);
+
   }
 
   getImageSize(dataUrl) {
