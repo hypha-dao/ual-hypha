@@ -1,6 +1,6 @@
 {
   "name": "@hypha-dao/ual-hypha",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "UAL implementation for Hypha Wallet",
   "type": "module",
   "source": "index.js",
