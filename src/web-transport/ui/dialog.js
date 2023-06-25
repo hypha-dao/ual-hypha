@@ -124,7 +124,7 @@ class Dialog {
 
   async showDialog({ title, text, qrCode, esr, action, footnote }) {
     const imageSize = await this.getImageSize(qrCode)
-    const qrAreaBaseSize = Math.max(imageSize.width, 380)
+    const qrAreaBaseSize = Math.max(imageSize.width, 250)
     const wrapperBaseSize = qrAreaBaseSize + 42
 
     this.setupElements(wrapperBaseSize);
