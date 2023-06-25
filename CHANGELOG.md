@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.10](https://github.com/hypha-dao/ual-hypha/compare/v1.0.9...v1.0.10) (2023-06-25)
+
+
+### Bug Fixes
+
+* set wrapper base size ([2d794cc](https://github.com/hypha-dao/ual-hypha/commit/2d794cc99396706af646138c8ba19ee6c4f054fb))
+* set wrapper base size ([2a7bf50](https://github.com/hypha-dao/ual-hypha/commit/2a7bf50736cf69d92293fa78038a15e709b0967f))
+
 ## [1.0.9](https://github.com/hypha-dao/ual-hypha/compare/v1.0.8...v1.0.9) (2023-06-23)
 
 
