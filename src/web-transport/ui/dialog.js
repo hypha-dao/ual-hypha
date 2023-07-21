@@ -124,7 +124,14 @@ class Dialog {
 
   async showDialog({ title, text, qrCode, esr, action, footnote }) {
     const imageSize = await this.getImageSize(qrCode)
-    const qrAreaBaseSize = Math.max(imageSize.width, 250)
+    const viewportHeight = window.innerHeight;
+
+    // Calculate the maximum height as 70% of the viewport height
+    // QR code is always square so width == height
+    const maxHeight = viewportHeight * 0.70;
+    const height = Math.min(imageSize.height, maxHeight);
+
+    const qrAreaBaseSize = Math.max(height, 250)
     const wrapperBaseSize = qrAreaBaseSize + 42
 
     this.setupElements(wrapperBaseSize);
