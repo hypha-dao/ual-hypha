@@ -129,9 +129,9 @@ export class HyphaAuthenticator extends Authenticator {
   /**
    * Login using the Authenticator App. This can return one or more users depending on multiple chain support.
    *
-   * @param accountName  The account name of the user for Authenticators that do not store accounts (optional)
+   * @param loginContent  Options object with text content to display during login
    */
-  async login() {
+  async login(loginContent = {}) {
     try {
       const loginCode = randomNumber();
       const action = generateAuthenticateAction({
@@ -143,7 +143,8 @@ export class HyphaAuthenticator extends Authenticator {
         const accountName = await this.transport.login(
           action,
           loginCode,
-          this.loginContract
+          this.loginContract,
+          loginContent
         );
         if (accountName) {
           this.users = [new HyphaUser(this.transport, accountName)];
@@ -166,7 +167,7 @@ export class HyphaAuthenticator extends Authenticator {
    * Logs the user out of the dapp. This will be strongly dependent on each Authenticator app's patterns.
    */
   logout() {
-    this.users = []
+    this.users = [];
     return this.transport.logout();
   }
 

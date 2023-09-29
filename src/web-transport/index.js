@@ -108,11 +108,12 @@ class WebTransportLink {
     return transactionInfo;
   }
 
-  async login(actions, loginCode, loginContract) {
+  async login(actions, loginCode, loginContract, loginContent = {}) {
     const options = {
       title: "Login",
       subtitle:
         "Scan the QR-code with Hypha Wallet or use the button to open a desktop wallet on this device.",
+      ...loginContent,
     };
 
     const transactionInfo = await this.signTransaction({ actions }, options);
