@@ -21,7 +21,13 @@ const checkLoginData = function (transaction, loginCode, loginContract) {
 };
 
 class WebTransportLink {
-  constructor(esrUtil, pollingInterval = 1000, transactionCheckInterval = 500) {
+  constructor(
+    esrUtil, 
+    pollingInterval = 1000, 
+    transactionCheckInterval = 500,
+    pollTimeout = 10 * 60 * 1000, // 10 minutes
+    transactionCheckTimeout = 30 * 1000 // 30 seconds
+    ) {
     if (!esrUtil || !esrUtil.rpc) {
       throw new Error("Invalid esrUtil or esrUtil.rpc not found " + esrUtil);
     }
@@ -31,6 +37,8 @@ class WebTransportLink {
     this.rpc = esrUtil.rpc;
     this.pollingInterval = pollingInterval;
     this.transactionCheckInterval = transactionCheckInterval;
+    this.pollTimeout = pollTimeout;
+    this.transactionCheckTimeout = transactionCheckTimeout;
     this.login = this.login.bind(this);
     this.restore = this.restore.bind(this);
     this.logout = this.logout.bind(this);
@@ -92,7 +100,7 @@ class WebTransportLink {
       throw new UALHyphaWalletError(
         "No transaction has been passed to sign transaction"
       );
-    const { pollingInterval, transactionCheckInterval } = this;
+    const { pollingInterval, transactionCheckInterval, pollTimeout, transactionCheckTimeout } = this;
     const uid = getTransactionUID(transaction);
     const callbackUrl = `${CALLBACK_HOST}/transaction?uid=${uid}&tx_id={{tx}}`;
     const esr = await this.esrUtil.encodeESR(
@@ -118,9 +126,9 @@ class WebTransportLink {
 
     await this.dialog.showDialog(dialog);
 
-    const txId = await poll(this.checkForConfirmation, uid, pollingInterval);
+    const txId = await poll(this.checkForConfirmation, uid, pollingInterval, pollTimeout);
 
-    const transactionInfo = await poll(this.checkTransactionId, txId, transactionCheckInterval);
+    const transactionInfo = await poll(this.checkTransactionId, txId, transactionCheckInterval, transactionCheckTimeout);
 
     this.dialog.hide();
     return transactionInfo;
