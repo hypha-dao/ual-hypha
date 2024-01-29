@@ -1,5 +1,3 @@
-export const ONBOARDING_LINK =
-  process.env.ONBOARDING_LINK || "https://hyphawallet.page.link/get-hypha-wallet";
 export const AUTHENTICATOR_NAME = "Hypha Wallet";
 export const BUTTON_BACKGROUND_COLOR = "#1D2946";
 export const BUTTON_TEXT_COLOR = "white";
