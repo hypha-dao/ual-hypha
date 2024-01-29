@@ -21,14 +21,21 @@ const checkLoginData = function (transaction, loginCode, loginContract) {
 };
 
 class WebTransportLink {
-  constructor(esrUtil, pollingInterval = 2000) {
+  constructor(esrUtil, pollingInterval = 1000, transactionCheckInterval = 500) {
+    if (!esrUtil || !esrUtil.rpc) {
+      throw new Error("Invalid esrUtil or esrUtil.rpc not found " + esrUtil);
+    }
+  
     this.dialog = new Dialog();
     this.esrUtil = esrUtil;
     this.rpc = esrUtil.rpc;
     this.pollingInterval = pollingInterval;
+    this.transactionCheckInterval = transactionCheckInterval;
     this.login = this.login.bind(this);
     this.restore = this.restore.bind(this);
     this.logout = this.logout.bind(this);
+    this.checkTransactionId = this.checkTransactionId.bind(this);
+
   }
 
   getContractFromTransaction(transactions) {
@@ -45,6 +52,17 @@ class WebTransportLink {
       const data = response.text();
       return data;
     } catch (e) {
+      //console.error("error polling: " + e)
+      return;
+    }
+  }
+
+  async checkTransactionId(txId) {
+    try {
+      const transactionInfo = await this.rpc.history_get_transaction(txId);
+      return transactionInfo;
+    } catch (e) {
+      //console.log("checkTransactionId error: " + e)
       return;
     }
   }
@@ -74,7 +92,7 @@ class WebTransportLink {
       throw new UALHyphaWalletError(
         "No transaction has been passed to sign transaction"
       );
-    const { pollingInterval } = this;
+    const { pollingInterval, transactionCheckInterval } = this;
     const uid = getTransactionUID(transaction);
     const callbackUrl = `${CALLBACK_HOST}/transaction?uid=${uid}&tx_id={{tx}}`;
     const esr = await this.esrUtil.encodeESR(
@@ -102,7 +120,7 @@ class WebTransportLink {
 
     const txId = await poll(this.checkForConfirmation, uid, pollingInterval);
 
-    const transactionInfo = await this.rpc.history_get_transaction(txId);
+    const transactionInfo = await poll(this.checkTransactionId, txId, transactionCheckInterval);
 
     this.dialog.hide();
     return transactionInfo;
