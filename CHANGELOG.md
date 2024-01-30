@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.0.14](https://github.com/hypha-dao/ual-hypha/compare/v1.0.11...v1.0.14) (2024-01-30)
+
+
+### Bug Fixes
+
+* add new hypha logo ([de3480a](https://github.com/hypha-dao/ual-hypha/commit/de3480afb3e0c01ac9f680000b745510898a6e9c))
+* add options for specifying login dialog content ([ae803a2](https://github.com/hypha-dao/ual-hypha/commit/ae803a24070a04be78285afe7073a32a31f3a6b5))
+* fix eos transactions ([93520f4](https://github.com/hypha-dao/ual-hypha/commit/93520f4561b0da7c2e4a7b31689f5a1c6d59922f))
+
+
+### Miscellaneous Chores
+
+* release 1.0.14 ([b3b7a00](https://github.com/hypha-dao/ual-hypha/commit/b3b7a00349c2086bf84bcd78d4f9cf073ea08055))
+
 ## [1.0.9](https://github.com/hypha-dao/ual-hypha/compare/v1.0.8...v1.0.9) (2023-06-23)
 
 
