@@ -1,15 +1,25 @@
 import { v4 as uuidv4 } from "uuid";
 
-
-export const poll = function (fn, data, interval) {
+export const poll = function (fn, data, interval, totalTimeout) {
   interval = interval || 100;
+  totalTimeout = totalTimeout || 120000; 
+
+  const startTime = Date.now(); 
 
   var checkCondition = async (resolve, reject) => {
-    var result = await fn(data);
-    if (result) {
-      resolve(result);
-    } else {
-      setTimeout(checkCondition, interval, resolve, reject);
+    try {
+      var result = await fn(data);
+      if (result) {
+        resolve(result);
+      } else {
+        if (Date.now() - startTime < totalTimeout) {
+          setTimeout(checkCondition, interval, resolve, reject);
+        } else {
+          reject(new Error("Timeout"));
+        }
+      }
+    } catch (error) {
+      reject(error);
     }
   };
 

@@ -4,7 +4,6 @@ import WebTransportLink from "./web-transport/index.js";
 import ESRUtil from "./utils/esr.js";
 
 import {
-  ONBOARDING_LINK,
   AUTHENTICATOR_NAME,
   BUTTON_BACKGROUND_COLOR,
   BUTTON_TEXT_COLOR,
@@ -65,9 +64,10 @@ export class HyphaAuthenticator extends Authenticator {
   /**
    * Returns a URL where the user can download and install the underlying authenticator
    * if it is not found by the UAL Authenticator.
+   * We return undefined - we do not want people to download the wallet other than with an onboarding link
    */
   getOnboardingLink() {
-    return ONBOARDING_LINK;
+    return undefined;
   }
 
   /**
