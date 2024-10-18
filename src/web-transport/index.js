@@ -1,7 +1,7 @@
 import Dialog from "./ui/dialog.js";
 import QRCode from "qrcode";
 import { poll, getTransactionUID } from "../utils/index.js";
-import { CALLBACK_HOST } from "../../config/index.js";
+import { CALLBACK_HOST, UAL_HYPHA_POLL_INTERVAL, UAL_HYPHA_POLL_TIMEOUT, UAL_HYPHA_TX_CHECK_INTERVAL, UAL_HYPHA_TX_CHECK_TIMEOUT } from "../../config/index.js";
 import { UALHyphaWalletError } from "../UALHyphaWalletError.js";
 
 const StorageSessionKey = `UALStorageSessionKey`;
@@ -23,10 +23,10 @@ const checkLoginData = function (transaction, loginCode, loginContract) {
 class WebTransportLink {
   constructor(
     esrUtil, 
-    pollingInterval = 1000, 
-    transactionCheckInterval = 500,
-    pollTimeout = 10 * 60 * 1000, // 10 minutes
-    transactionCheckTimeout = 30 * 1000 // 30 seconds
+    pollingInterval = UAL_HYPHA_POLL_INTERVAL, 
+    transactionCheckInterval = UAL_HYPHA_TX_CHECK_INTERVAL,
+    pollTimeout = UAL_HYPHA_POLL_TIMEOUT,
+    transactionCheckTimeout = UAL_HYPHA_TX_CHECK_TIMEOUT
     ) {
     if (!esrUtil || !esrUtil.rpc) {
       throw new Error("Invalid esrUtil or esrUtil.rpc not found " + esrUtil);
