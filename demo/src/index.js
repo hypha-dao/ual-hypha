@@ -53,6 +53,11 @@ const hyphaEOSAuthenticator = new HyphaAuthenticator([eosChain], {
 const hyphaTelosAuthenticator = new HyphaAuthenticator([telosChain], {
   appName: "Hypha Wallet Telos",
   authenticatorName: "Hypha Wallet Telos",
+  transactionCheckInterval: 2001, // testing custom values
+  transactionCheckTimeout: 30001,
+  pollingInterval: 2001,
+  pollTimeout: 600001
+
 });
 
 const MyUALConsumer = withUAL(App);

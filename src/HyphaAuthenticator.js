@@ -14,6 +14,20 @@ import { HyphaUser } from "./HyphaUser.js";
 import { randomNumber } from "./utils/index.js";
 import { ACCOUNT_LOGIN, generateAuthenticateAction } from "./actions/index.js";
 
+/**
+ * HyphaAuthenticator is a UAL (Universal Authenticator Library) implementation for Hypha wallet integration.
+ *
+ * @param {Array} chains - An array of chain configurations for UAL (Universal Authenticator Library).
+ * @param {Object} options - An options object to customize behavior.
+ * @param {string} [options.authenticatorName=AUTHENTICATOR_NAME] - The name of the authenticator. Defaults to a predefined constant `AUTHENTICATOR_NAME` if not provided.
+ * @param {string} [options.loginContract=ACCOUNT_LOGIN] - The contract to be used for login functionality. Defaults to `ACCOUNT_LOGIN`.
+ * @param {Object} [options.client] - Optional EOSIO client object for interacting with the blockchain. If not provided, the default client from `ESRUtil` will be used.
+ * @param {Object} [options.rpc] - Optional EOSIO RPC endpoint for making network requests. If not provided, the default RPC from `ESRUtil` will be used.
+ * @param {number} [options.transactionCheckInterval] - Interval (in ms) at which to check the status of blockchain transactions.
+ * @param {number} [options.transactionCheckTimeout] - Timeout (in ms) for transaction checking operations.
+ * @param {number} [options.pollingInterval] - Interval (in ms) for polling blockchain updates.
+ * @param {number} [options.pollTimeout] - Timeout (in ms) for polling operations.
+ */
 export class HyphaAuthenticator extends Authenticator {
   constructor(chains, options) {
     super(chains);
@@ -39,7 +53,12 @@ export class HyphaAuthenticator extends Authenticator {
     } else {
       this.rpc = this.esrUtil.rpc;
     }
-    this.transport = new WebTransportLink(esrUtil);
+    this.transport = new WebTransportLink(esrUtil, {
+      transactionCheckInterval: options.transactionCheckInterval,
+      transactionCheckTimeout: options.transactionCheckTimeout,
+      pollingInterval: options.pollingInterval,
+      pollTimeout: options.pollTimeout
+    });
   }
   /**
    * Called after `shouldRender` and should be used to handle any async actions required to initialize the authenticator
