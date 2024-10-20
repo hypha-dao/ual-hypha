@@ -23,11 +23,12 @@ const checkLoginData = function (transaction, loginCode, loginContract) {
 class WebTransportLink {
   constructor(
     esrUtil, 
-    pollingInterval = 1000, 
-    transactionCheckInterval = 500,
-    pollTimeout = 10 * 60 * 1000, // 10 minutes
-    transactionCheckTimeout = 30 * 1000 // 30 seconds
-    ) {
+    {
+      pollingInterval = 1000, 
+      transactionCheckInterval = 500,
+      pollTimeout = 10 * 60 * 1000, // 10 minutes
+      transactionCheckTimeout = 30 * 1000 // 30 seconds
+    }) {
     if (!esrUtil || !esrUtil.rpc) {
       throw new Error("Invalid esrUtil or esrUtil.rpc not found " + esrUtil);
     }
@@ -43,7 +44,6 @@ class WebTransportLink {
     this.restore = this.restore.bind(this);
     this.logout = this.logout.bind(this);
     this.checkTransactionId = this.checkTransactionId.bind(this);
-
   }
 
   getContractFromTransaction(transactions) {
